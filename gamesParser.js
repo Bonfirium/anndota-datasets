@@ -46,7 +46,7 @@ files.forEach(function(fileName, ind) {
     }
 }, this)
 
-fs.writeFileSync('games.json', JSON.stringify(games))
+fs.writeFileSync('data/games.json', JSON.stringify(games))
 
 console.log('deleting unnecessary files...')
 deleteInnerFolderRecursive(UNPARSED_GAMES_FOLDER)
