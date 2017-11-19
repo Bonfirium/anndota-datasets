@@ -1,6 +1,6 @@
 
 const fs = require('fs')
-let games = require('./games.json')
+let games = require('./data/games.json')
 
 const UNPARSED_GAMES_FOLDER = 'unparsedGames'
 
@@ -41,12 +41,12 @@ files.forEach(function(fileName, ind) {
     game.skill = (intSkill == 1 ? 'normal' : (intSkill == 2 ? 'high' : 'very high'))
     games[id] = game
     if (ind % 1000 == 0) {
-        fs.writeFileSync('games.json', JSON.stringify(games))
+        fs.writeFileSync('data/games.json', JSON.stringify(games))
         console.log(ind / filesCount * 100 + '%')
     }
 }, this)
 
-fs.writeFileSync('games.json', JSON.stringify(games))
+fs.writeFileSync('data/games.json', JSON.stringify(games))
 
 console.log('deleting unnecessary files...')
 deleteInnerFolderRecursive(UNPARSED_GAMES_FOLDER)
