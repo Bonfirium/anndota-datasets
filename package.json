@@ -1,0 +1,22 @@
+{
+  "name": "anndota-datasets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "matchesGlue.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fit4code/anndota-datasets.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fit4code/anndota-datasets/issues"
+  },
+  "homepage": "https://github.com/fit4code/anndota-datasets#readme",
+  "dependencies": {
+    "fs": "0.0.1-security"
+  }
+}
