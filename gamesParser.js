@@ -4,7 +4,22 @@ let games = require('./games.json')
 
 const UNPARSED_GAMES_FOLDER = 'unparsedGames'
 
-fs.readdirSync(UNPARSED_GAMES_FOLDER).forEach(function(fileName) {
+var deleteInnerFolderRecursive = function (path) {
+    if (fs.existsSync(path)) {
+        fs.readdirSync(path).forEach(function (file, index) {
+            var curPath = path + "/" + file
+            if (fs.lstatSync(curPath).isDirectory( )) {
+                deleteFolderRecursive(curPath)
+            } else {
+                fs.unlinkSync(curPath)
+            }
+        })
+    }
+}
+
+let files = fs.readdirSync(UNPARSED_GAMES_FOLDER)
+let filesCount = files.length
+files.forEach(function(fileName, ind) {
     let id = fileName.replace('.txt', '')
     let game = { }
     let content = fs.readFileSync(UNPARSED_GAMES_FOLDER + '/' + fileName, 'utf8')
@@ -25,7 +40,15 @@ fs.readdirSync(UNPARSED_GAMES_FOLDER).forEach(function(fileName) {
     let intSkill = parseInt(lines[12])
     game.skill = (intSkill == 1 ? 'normal' : (intSkill == 2 ? 'high' : 'very high'))
     games[id] = game
-    fs.unlink(UNPARSED_GAMES_FOLDER + '/' + fileName)
+    if (ind % 1000 == 0) {
+        fs.writeFileSync('games.json', JSON.stringify(games))
+        console.log(ind / filesCount * 100 + '%')
+    }
 }, this)
 
 fs.writeFileSync('games.json', JSON.stringify(games))
+
+console.log('deleting unnecessary files...')
+deleteInnerFolderRecursive(UNPARSED_GAMES_FOLDER)
+
+console.log('done')
